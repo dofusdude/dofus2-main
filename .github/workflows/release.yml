@@ -13,13 +13,11 @@ jobs:
         runs-on: self-hosted
         steps:
         -   
-            name: Set up Python for lastversion
-            run: sudo apt-get install curl python3 python3-pip python3-setuptools python3-wheel -y
+            name: System dependencies
+            run: sudo apt-get install curl
         -  
             name: Get doduda
             run: |
-                python3 -m pip install lastversion
-                docker pull stelzo/doduda:latest
                 curl -s https://api.github.com/repos/dofusdude/doduda/releases/latest \
                 | grep "browser_download_url.*Linux_arm64.tar.gz" \
                 | cut -d : -f 2,3 \
@@ -28,15 +26,13 @@ jobs:
                 tar -xzf doduda_Linux_arm64.tar.gz
                 chmod +x doduda
         -
-            name: Download data from Ankama servers
-            run: docker run --rm -v $PWD/data:/app/data stelzo/doduda:pydofus --python $(which python3)
-        -
-            name: Map to application usable format
+            name: Download and parse
             run: |
                 mkdir persistent
                 curl -o persistent/elements.json -L https://raw.githubusercontent.com/dofusdude/doduda/main/persistent/elements.json
                 curl -o persistent/item_types.json -L https://raw.githubusercontent.com/dofusdude/doduda/main/persistent/item_types.json
-                ./doduda parse --dir $PWD
+                ./doduda
+                ./doduda parse --indent
         -
             name: Group images
             run: |
