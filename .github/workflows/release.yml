@@ -29,7 +29,7 @@ jobs:
                 chmod +x doduda
         -
             name: Download data from Ankama servers
-            run: docker run --rm -v $PWD/data:/app/data stelzo/doduda:latest --python $(which python3)
+            run: docker run --rm -v $PWD/data:/app/data stelzo/doduda:pydofus --python $(which python3)
         -
             name: Map to application usable format
             run: |
@@ -51,7 +51,7 @@ jobs:
             with:
               repo_token: "${{ secrets.GITHUB_TOKEN }}"
               prerelease: false
-              title: "Dofus 2 main ${{ github.event.inputs.version }}" 
+              title: "${{ github.event.inputs.version }}" 
               files: |
                 data/*.json
                 data/languages/*.json
