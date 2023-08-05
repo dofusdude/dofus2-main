@@ -31,8 +31,8 @@ jobs:
                 mkdir persistent
                 curl -o persistent/elements.json -L https://raw.githubusercontent.com/dofusdude/doduda/main/persistent/elements.json
                 curl -o persistent/item_types.json -L https://raw.githubusercontent.com/dofusdude/doduda/main/persistent/item_types.json
-                ./doduda
-                ./doduda parse --indent
+                sudo ./doduda
+                sudo ./doduda parse --indent
         -
             name: Group images
             run: |
