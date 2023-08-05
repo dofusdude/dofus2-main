@@ -14,15 +14,18 @@ jobs:
         steps:
         -   
             name: Set up Python for lastversion
-            run: sudo apt-get install wget curl python3 python3-pip python3-setuptools python3-wheel -y
+            run: sudo apt-get install curl python3 python3-pip python3-setuptools python3-wheel -y
         -  
             name: Get doduda
             run: |
                 python3 -m pip install lastversion
                 docker pull stelzo/doduda:latest
-                releaseTar=$($HOME/.local/bin/lastversion get https://github.com/dofusdude/doduda --assets)
-                wget "$releaseTar" -O doduda.tar.gz
-                tar -xzf doduda.tar.gz
+                curl -s https://api.github.com/repos/dofusdude/doduda/releases/latest \
+                | grep "browser_download_url.*Linux_arm64.tar.gz" \
+                | cut -d : -f 2,3 \
+                | tr -d \" \
+                | wget -qi -
+                tar -xzf doduda_Linux_arm64.tar.gz
                 chmod +x doduda
         -
             name: Download data from Ankama servers
@@ -31,8 +34,8 @@ jobs:
             name: Map to application usable format
             run: |
                 mkdir persistent
-                wget https://raw.githubusercontent.com/dofusdude/doduda/main/persistent/elements.json -o persistent/elements.json
-                wget https://raw.githubusercontent.com/dofusdude/doduda/main/persistent/item_types.json -o persistent/item_types.json
+                curl -o persistent/elements.json -L https://raw.githubusercontent.com/dofusdude/doduda/main/persistent/elements.json
+                curl -o persistent/item_types.json -L https://raw.githubusercontent.com/dofusdude/doduda/main/persistent/item_types.json
                 ./doduda parse --dir $PWD
         -
             name: Group images
