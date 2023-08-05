@@ -28,7 +28,7 @@ jobs:
         -
             name: Download and parse
             run: |
-                mkdir persistent
+                mkdir -p persistent
                 curl -o persistent/elements.json -L https://raw.githubusercontent.com/dofusdude/doduda/main/persistent/elements.json
                 curl -o persistent/item_types.json -L https://raw.githubusercontent.com/dofusdude/doduda/main/persistent/item_types.json
                 sudo ./doduda
