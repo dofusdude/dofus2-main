@@ -20,7 +20,7 @@ jobs:
             run: |
                 python3 -m pip install lastversion
                 docker pull stelzo/doduda:latest
-                releaseTar=$(lastversion get https://github.com/dofusdude/doduda --assets)
+                releaseTar=$($HOME/.local/bin/lastversion get https://github.com/dofusdude/doduda --assets)
                 wget "$releaseTar" -O doduda.tar.gz
                 tar -xzf doduda.tar.gz
                 chmod +x doduda
