@@ -14,10 +14,10 @@ jobs:
         steps:
         -   
             name: Set up Python for lastversion
-            run: apt-get install wget curl python3 python3-pip python3-setuptools python3-wheel -y
+            run: sudo apt-get install wget curl python3 python3-pip python3-setuptools python3-wheel -y
         -  
             name: Install latestrelease
-            run: pip install lastversion
+            run: python3 -m pip install lastversion
         -  
             name: Get doduda
             run: |
