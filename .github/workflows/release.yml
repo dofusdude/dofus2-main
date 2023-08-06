@@ -12,15 +12,15 @@ jobs:
     tag:
         runs-on: ubuntu-latest
         steps:
-            -
-                name: Checkout
-                uses: actions/checkout@v2
-            - 
-                name: Tag snapshot
-                uses: tvdias/github-tagger@v0.0.1
-                with:
-                    repo-token: ${{ secrets.GITHUB_TOKEN }}
-                    tag: "${{ github.event.inputs.version }}"
+        -
+            name: Checkout
+            uses: actions/checkout@v2
+        - 
+            name: Tag snapshot
+            uses: tvdias/github-tagger@v0.0.1
+            with:
+                repo-token: ${{ secrets.GITHUB_TOKEN }}
+                tag: "${{ github.event.inputs.version }}"
     release:
         needs: tag
         runs-on: self-hosted
@@ -39,11 +39,8 @@ jobs:
                 tar -xzf doduda_Linux_arm64.tar.gz
                 chmod +x doduda
         -
-            name: Download and parse
+            name: Get data
             run: |
-                mkdir -p persistent
-                curl -o persistent/elements.json -L https://raw.githubusercontent.com/dofusdude/doduda/main/persistent/elements.json
-                curl -o persistent/item_types.json -L https://raw.githubusercontent.com/dofusdude/doduda/main/persistent/item_types.json
                 sudo ./doduda
                 sudo ./doduda parse --indent
         -
@@ -55,12 +52,13 @@ jobs:
                 tar -czf items_images_vector.tar.gz data/vector/item/
                 tar -czf mounts_images_vector.tar.gz data/vector/mount/
         - 
-            name: Upload release assets
+            name: Upload assets
             uses: "marvinpinto/action-automatic-releases@latest"
             with:
               repo_token: "${{ secrets.GITHUB_TOKEN }}"
               prerelease: false
               title: "${{ github.ref }}"
+              automatic_release_tag: "${{ github.ref }}"
               files: |
                 data/*.json
                 data/languages/*.json
