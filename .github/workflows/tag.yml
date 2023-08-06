@@ -1,0 +1,23 @@
+name: Tag Trigger
+
+on:
+    workflow_dispatch:
+      inputs:
+        version:
+          type: string
+          description: The version that will be downloaded
+          required: true
+
+jobs:
+    tag:
+        runs-on: ubuntu-latest
+        steps:
+            -
+                name: Checkout
+                uses: actions/checkout@v2
+            - 
+                name: Tag snapshot
+                uses: tvdias/github-tagger@v0.0.1
+                with:
+                    repo-token: ${{ secrets.GITHUB_TOKEN }}
+                    tag: "${{ github.event.inputs.version }}"
