@@ -1,4 +1,4 @@
-name: Release Dofus 2 Main Version
+name: release
 
 on:
     workflow_dispatch:
@@ -23,11 +23,11 @@ jobs:
                 tag: "${{ github.event.inputs.version }}"
     release:
         needs: tag
-        runs-on: self-hosted
+        runs-on: ubuntu-latest
         steps:
         -   
             name: System dependencies
-            run: sudo apt-get install curl && sudo rm -rf *
+            run: sudo apt-get install curl -y
         -  
             name: Get doduda
             run: |
@@ -66,4 +66,6 @@ jobs:
                 mounts_images.tar.gz
                 items_images_vector.tar.gz
                 mounts_images_vector.tar.gz
-                
+        -
+            name: Notify doduapi to update
+            run: curl -X POST https://dofusdu.de/dofus2/update/${{ secrets.DODUAPI_TOKEN }}
