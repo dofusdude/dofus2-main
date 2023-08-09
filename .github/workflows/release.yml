@@ -41,7 +41,7 @@ jobs:
         -
             name: Get data
             run: |
-                sudo ./doduda
+                sudo ./doduda --headless
                 sudo ./doduda parse --indent
         -
             name: Group images
