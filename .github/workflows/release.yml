@@ -81,7 +81,13 @@ jobs:
                 data/*.json
                 data/languages/*.json
                 items_images.tar.gz
+                items_images_200.tar.gz
+                items_images_400.tar.gz
+                items_images_800.tar.gz
                 mounts_images.tar.gz
+                mounts_images_200.tar.gz
+                mounts_images_400.tar.gz
+                mounts_images_800.tar.gz
                 items_images_vector.tar.gz
                 mounts_images_vector.tar.gz
         -
