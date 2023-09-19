@@ -53,6 +53,8 @@ jobs:
                 tar -czf items_images_vector.tar.gz data/vector/item/
                 tar -czf mounts_images_vector.tar.gz data/vector/mount/
 
+                sudo mkdir -p data/vector/mount
+                sudo mkdir -p data/img/mount
                 sudo ./doduda render data/vector/mount data/img/mount 200 --headless --incremental dofusdude/dofus2-main/mounts_images_200
                 tar -czf mounts_images_200.tar.gz $( find data/img/mount -name "*-200.png" )
 
@@ -62,9 +64,10 @@ jobs:
                 sudo ./doduda render data/vector/mount data/img/mount 800 --headless --incremental dofusdude/dofus2-main/mounts_images_800
                 tar -czf mounts_images_800.tar.gz $( find data/img/mount -name "*-800.png" )
 
+                sudo mkdir -p data/vector/item
+                sudo mkdir -p data/img/item
                 sudo ./doduda render data/vector/item data/img/item 200 --headless --incremental dofusdude/dofus2-main/items_images_200
                 tar -czf items_images_200.tar.gz $( find data/img/item -name "*-200.png" )
-                ls data/vector/item
 
                 sudo ./doduda render data/vector/item data/img/item 400 --headless --incremental dofusdude/dofus2-main/items_images_400
                 tar -czf items_images_400.tar.gz $( find data/img/item -name "*-400.png" )
