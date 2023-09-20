@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
-docker pull stelzo/swf-renderer:latest
+docker pull stelzo/swf-to-svg:latest
+docker pull stelzo/svg-to-png:latest
 
 if [[ $(uname) == "Linux" ]]; then
     os="Linux"
