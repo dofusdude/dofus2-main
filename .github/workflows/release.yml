@@ -21,10 +21,10 @@ jobs:
           tag: "${{ github.event.inputs.version }}"
   release:
     needs: tag
-    runs-on: ubuntu-latest
+    runs-on: macos-hosted
     steps:
       - name: System dependencies
-        run: sudo apt-get install curl wget -y
+        run: brew install curl wget
       - name: Checkout
         uses: actions/checkout@v4
       - name: Download assets
